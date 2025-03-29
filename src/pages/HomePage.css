@@ -1,0 +1,159 @@
+/* HomePage.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  /* NAVBAR */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #2d3a45;
+    color: #ffffff;
+  }
+  
+  .navbar__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar__links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar__links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .navbar__right .btn {
+    margin-left: 1rem;
+  }
+  
+  /* HERO SECTION */
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 2rem;
+    background-color: #fff;
+  }
+  
+  .hero__text {
+    max-width: 50%;
+  }
+  
+  .hero__text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .hero__text p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+  
+  .hero__image img {
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  /* BUTTONS */
+  .btn {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+  }
+  
+  .login-btn {
+    background-color: #ffffff;
+    color: #2d3a45;
+    border: 1px solid #ffffff;
+  }
+  
+  .login-btn:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .cta-btn {
+    background-color: #fca311;
+    color: #ffffff;
+  }
+  
+  .cta-btn:hover {
+    background-color: #e68f0b;
+  }
+  
+  .smart-spend-btn {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  .smart-spend-btn:hover {
+    background-color: #0062cc;
+  }
+  
+  /* FOOTER */
+  .footer {
+    background-color: #2d3a45;
+    color: #ffffff;
+    padding: 2rem;
+  }
+  
+  .footer__top {
+    margin-bottom: 1rem;
+  }
+  
+  .footer__logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .footer__description {
+    margin: 0.5rem 0;
+    max-width: 400px;
+    line-height: 1.4;
+  }
+  
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .footer__links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .footer__links a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .footer__copy {
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+  
