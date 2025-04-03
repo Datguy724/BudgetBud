@@ -5,6 +5,7 @@ const Header = () => {
     <header>
       <h1>Welcome to BudgetBud</h1>
     </header>
+    
   );
 };
 

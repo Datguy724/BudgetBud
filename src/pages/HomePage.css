@@ -1,42 +1,17 @@
 /* HomePage.css */
-
+.home-page {
+  width: 100vw; /* 100% of the viewport width */
+  height: 100vh; /* 100% of the viewport height */
+  display: flex; /* Helps with centering content if needed */
+  align-items: center; /* Centers content vertically */
+  justify-content: center; /* Centers content horizontally */
+  background-color: #f5f5f5; /* Example background color */
+  flex-direction: column;
+ }
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-  }
-  
-  /* NAVBAR */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #2d3a45;
-    color: #ffffff;
-  }
-  
-  .navbar__logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .navbar__links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar__links a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .navbar__right .btn {
-    margin-left: 1rem;
   }
   
   /* HERO SECTION */
@@ -107,53 +82,4 @@ body {
   
   .smart-spend-btn:hover {
     background-color: #0062cc;
-  }
-  
-  /* FOOTER */
-  .footer {
-    background-color: #2d3a45;
-    color: #ffffff;
-    padding: 2rem;
-  }
-  
-  .footer__top {
-    margin-bottom: 1rem;
-  }
-  
-  .footer__logo {
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-  
-  .footer__description {
-    margin: 0.5rem 0;
-    max-width: 400px;
-    line-height: 1.4;
-  }
-  
-  .footer__bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .footer__links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .footer__links a {
-    color: #ffffff;
-    text-decoration: none;
-  }
-  
-  .footer__copy {
-    font-size: 0.875rem;
-    opacity: 0.8;
-  }
-  
+  }  

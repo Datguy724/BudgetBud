@@ -1,23 +1,20 @@
 import './App.css';
-import Header from './components/Header';
+// import Header from './components/Header';
 import Home from './pages/Home';
-import About from './pages/about';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+// import About from './pages/about';
+// import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import navbarStyles from './components/Navbar.css';
+import footerStyles from './components/Footer.css'
 
 
 function App() {
   return (
     <div className="App">
-      {/* <Header /> */}
-      <Router>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<about />} />
-      </Routes>
-    </Router>
+      <Navbar className={navbarStyles.navbar}/>
+      <Home/>
+      <Footer className={footerStyles.footer}/>
     </div>
   );
 }

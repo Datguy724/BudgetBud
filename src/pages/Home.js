@@ -1,25 +1,12 @@
 import React from 'react';
 import './HomePage.css';
-// import piggyBank from '../assets/images/piggy-bank.png'; // Update the path as needed
-import budgetBudLogo from '../images/logo.png';
+import piggyBank from '../images/piggyBankLogo.png';
+// import budgetBudLogo from '../images/logo.png';
+// import Navbar from './components/Navbar';
+
 function HomePage() {
   return (
     <div className="home-page">
-      {/* NAVIGATION */}
-      <nav className="navbar">
-        <div className="navbar__left">
-          <div className="navbar__logo">BudgetBud</div>
-          <ul className="navbar__links">
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#resources">Resources</a></li>
-          </ul>
-        </div>
-        <div className="navbar__right">
-          <button className="btn login-btn">Login</button>
-          <button className="btn cta-btn">Try BudgetBud</button>
-        </div>
-      </nav>
 
       {/* HERO SECTION */}
       <section className="hero">
@@ -33,30 +20,9 @@ function HomePage() {
           <button className="btn smart-spend-btn">Try Smart Spend</button>
         </div>
         <div className="hero__image">
-          <img src={budgetBudLogo} alt="budget bud logo" />
+          <img src={piggyBank} alt="piggy" />
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="footer">
-        <div className="footer__top">
-          <div className="footer__logo">BudgetBud</div>
-          <p className="footer__description">
-            BudgetBud was created to empower individuals to take control 
-            of their finances with ease.
-          </p>
-        </div>
-        <div className="footer__bottom">
-          <ul className="footer__links">
-            <li><a href="#english">English</a></li>
-            <li><a href="#terms">Terms & Policy</a></li>
-            <li><a href="#security">Security</a></li>
-          </ul>
-          <span className="footer__copy">
-            ©2025 BudgetBud
-          </span>
-        </div>
-      </footer>
     </div>
   );
 }
