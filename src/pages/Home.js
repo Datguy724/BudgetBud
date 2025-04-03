@@ -17,7 +17,7 @@ function HomePage() {
             all-in-one budgeting companion—designed to help you track income, 
             monitor expenses, and visualize your financial habits.
           </p>
-          <button className="btn smart-spend-btn">Try Smart Spend</button>
+          <button className="btn smart-spend-btn">Try BudgetBud</button>
         </div>
         <div className="hero__image">
           <img src={piggyBank} alt="piggy" />
