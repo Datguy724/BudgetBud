@@ -7,14 +7,20 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import navbarStyles from './components/Navbar.css';
 import footerStyles from './components/Footer.css'
-
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SignUp from './pages/signup';
+import signupStyles from './pages/signup.css';
 function App() {
   return (
     <div className="App">
-      <Navbar className={navbarStyles.navbar}/>
-      <Home/>
-      <Footer className={footerStyles.footer}/>
+      <BrowserRouter>
+        <Navbar className={navbarStyles.navbar}/>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/signup" element={<SignUp className={signupStyles.signup}/>} />
+        </Routes>
+        <Footer className={footerStyles.footer}/>
+      </BrowserRouter>
     </div>
   );
 }
