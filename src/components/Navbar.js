@@ -7,7 +7,7 @@ function Navbar(){
             <div className="navbar__left">
             <div className="navbar__logo">BudgetBud</div>
             <ul className="navbar__links">
-                <li><a href="#about">About Us</a></li>
+                <li><a href="../pages/about">About Us</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#resources">Resources</a></li>
             </ul>

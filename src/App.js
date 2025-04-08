@@ -12,6 +12,8 @@ import SignUp from './pages/signup';
 import signupStyles from './pages/signup.css';
 import SignIn from './pages/signin';
 import signinStyles from './pages/signin.css';
+import Dashboard from './pages/Dashboard';
+import dashboardStyles from './pages/Dashboard.css';
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/signup" element={<SignUp className={signupStyles.signup}/>} />
           <Route path="/signin" element={<SignIn className={signinStyles.signin}/>} />
+          <Route path="/dashboard" element={<Dashboard className={dashboardStyles.Dashboard}/>} />
         </Routes>
         <Footer className={footerStyles.footer}/>
       </BrowserRouter>
