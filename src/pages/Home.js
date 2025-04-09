@@ -11,9 +11,9 @@ function HomePage() {
       {/* HERO SECTION */}
       <section className="hero">
         <div className="hero__text">
-          <h1>Your Money's Best Friend.</h1>
+          <h1>Your Money's <span className="highlight">Best Friend</span>.</h1>
           <p>
-            Managing your money has never been easier! BudgetBud is your 
+            Managing your money has never been easier! <span className="bold">BudgetBud</span> is your 
             all-in-one budgeting companion—designed to help you track income, 
             monitor expenses, and visualize your financial habits.
           </p>
