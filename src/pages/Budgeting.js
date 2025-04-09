@@ -133,7 +133,7 @@ function BudgetingPage() {
         {/* TAB MENU */}
         <ul className="dashboard-tabs">
           <li>
-            <Link to="/">Financial Overview</Link>
+            <Link to="/dashboard">Financial Overview</Link>
           </li>
           <li>
             <Link to="/income">Income</Link>

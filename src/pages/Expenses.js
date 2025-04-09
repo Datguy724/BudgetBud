@@ -62,7 +62,7 @@ function ExpensesPage() {
         {/* TAB MENU */}
         <ul className="dashboard-tabs">
           <li>
-            <Link to="/">Financial Overview</Link>
+            <Link to="/dashboard">Financial Overview</Link>
           </li>
           <li>
             <Link to="/income">Income</Link>
@@ -70,7 +70,9 @@ function ExpensesPage() {
           <li className="active-tab">
             <Link to="/expenses">Expenses</Link>
           </li>
-          <li>Budget Categories</li>
+          <li>
+            <Link to="/budgeting">Budget Categories</Link>
+          </li>
         </ul>
 
         {/* EXPENSES LIST/ENTRIES */}

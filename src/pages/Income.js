@@ -29,8 +29,12 @@ function IncomePage() {
           <li className="active-tab">
             <Link to="/income">Income</Link>
           </li>
-          <li>Expenses</li>
-          <li>Budget Categories</li>
+          <li>
+            <Link to="/expenses">Expenses</Link>
+          </li>
+          <li>
+            <Link to="/budgeting">Budget Categories</Link>
+          </li>
         </ul>
 
         {/* INCOME LIST/ENTRIES */}

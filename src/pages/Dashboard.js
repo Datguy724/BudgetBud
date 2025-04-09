@@ -110,12 +110,15 @@ function DashboardPage() {
         {/* TAB MENU */}
         <ul className="dashboard-tabs">
           <li className="active-tab">Financial Overview</li>
-          {/* Updated: Link to the Income page */}
           <li>
             <Link to="/income">Income</Link>
           </li>
-          <li>Expenses</li>
-          <li>Budget Categories</li>
+          <li>
+            <Link to="/expenses">Expenses</Link>
+          </li>
+          <li>
+            <Link to="/budgeting">Budget Categories</Link>
+          </li>
         </ul>
 
         {/* STATS CARDS */}
