@@ -1,0 +1,141 @@
+/* BudgetingPage.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6; /* Light gray background */
+  }
+  
+  .budgeting-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* TOP NAV */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2d3a45;
+    padding: 1rem;
+    color: #ffffff;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-icon {
+    margin-right: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .nav-right .nav-home-link {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+  }
+  
+  .nav-right .nav-home-link:hover {
+    background-color: #ffffff;
+    color: #2d3a45;
+  }
+  
+  /* MAIN CONTENT */
+  .main-content {
+    flex: 1;
+    padding: 2rem;
+  }
+  
+  .budget-title {
+    margin-top: 0;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  /* TABS */
+  .dashboard-tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  .dashboard-tabs li {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    color: #555;
+    font-weight: 500;
+  }
+  
+  .dashboard-tabs li:hover {
+    background-color: #eaeaea;
+  }
+  
+  .active-tab {
+    border-bottom: 3px solid #2d3a45;
+    color: #2d3a45;
+    font-weight: bold;
+  }
+  
+  /* NO BUDGET MSG */
+  .no-budget {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  /* CHART SECTION */
+  .budget-chart-container {
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* ADD CATEGORY */
+  .add-category-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .add-category-btn,
+  .confirm-btn {
+    background-color: #2d3a45;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .add-category-btn:hover,
+  .confirm-btn:hover {
+    background-color: #1c252d;
+  }
+  
+  .add-category-form {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .add-category-form input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  

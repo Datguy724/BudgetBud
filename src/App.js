@@ -16,7 +16,10 @@ import Dashboard from './pages/Dashboard';
 import dashboardStyles from './pages/Dashboard.css';
 import Income from './pages/Income';
 import IncomeStyles from './pages/Income.css';
-
+import Expenses from './pages/Expenses';
+import ExpensesStyles from './pages/Expenses.css';
+import Budgeting from './pages/Budgeting';
+import BudgetingStyles from './pages/Budgeting.css'
 function App() {
   return (
     <div className="App">
@@ -28,6 +31,8 @@ function App() {
           <Route path="/signin" element={<SignIn className={signinStyles.signin}/>} />
           <Route path="/dashboard" element={<Dashboard className={dashboardStyles.Dashboard}/>} />
           <Route path="/income" element={<Income className={IncomeStyles.Income}/>}/>
+          <Route path="/expenses" element={<Expenses className={ExpensesStyles.Expenses}/>}/>
+          <Route path="/budgeting" element={<Budgeting className={BudgetingStyles.Budgeting}/>}/>
         </Routes>
         <Footer className={footerStyles.footer}/>
       </BrowserRouter>
