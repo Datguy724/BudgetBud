@@ -14,6 +14,8 @@ import SignIn from './pages/signin';
 import signinStyles from './pages/signin.css';
 import Dashboard from './pages/Dashboard';
 import dashboardStyles from './pages/Dashboard.css';
+import Income from './pages/Income';
+import IncomeStyles from './pages/Income.css';
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path="/signup" element={<SignUp className={signupStyles.signup}/>} />
           <Route path="/signin" element={<SignIn className={signinStyles.signin}/>} />
           <Route path="/dashboard" element={<Dashboard className={dashboardStyles.Dashboard}/>} />
+          <Route path="/income" element={<Income className={IncomeStyles.Income}/>}/>
         </Routes>
         <Footer className={footerStyles.footer}/>
       </BrowserRouter>

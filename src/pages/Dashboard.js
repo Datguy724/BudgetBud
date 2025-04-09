@@ -1,10 +1,9 @@
+// DashboardPage.js
 import React from 'react';
+import { Link } from 'react-router-dom'; // <-- Import Link
 import './Dashboard.css';
 
-// Import Chart.js wrappers
 import { Pie, Line } from 'react-chartjs-2';
-
-// Required Chart.js registration if needed (Chart.js v4+ auto-registers, so it may be optional)
 import {
   Chart as ChartJS,
   ArcElement,
@@ -28,7 +27,7 @@ ChartJS.register(
   Legend
 );
 
-function Dashboard() {
+function DashboardPage() {
   // Example Pie chart data
   const pieData = {
     labels: ['Rent', 'Groceries', 'Utilities', 'Entertainment', 'Others'],
@@ -97,8 +96,8 @@ function Dashboard() {
           </div>
         </div>
         <div className="nav-right">
-          {/* Single "Home" link as shown in the mockup */}
-          <a href="/" className="nav-home-link">Home</a>
+          {/* Single "Home" link */}
+          <Link to="/" className="nav-home-link">Home</Link>
         </div>
       </nav>
 
@@ -111,7 +110,10 @@ function Dashboard() {
         {/* TAB MENU */}
         <ul className="dashboard-tabs">
           <li className="active-tab">Financial Overview</li>
-          <li>Income</li>
+          {/* Updated: Link to the Income page */}
+          <li>
+            <Link to="/income">Income</Link>
+          </li>
           <li>Expenses</li>
           <li>Budget Categories</li>
         </ul>
@@ -165,4 +167,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default DashboardPage;
