@@ -5,19 +5,31 @@
     padding: 1rem;
     background-color: #2d3a45;
     color: #ffffff;
-  }
+  } 
   
   .navbar__logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+    height: 60px;
+    width: auto;  
+    margin-right: 1rem;
   }
   
+  /* .navbar__left {
+    display: flex;
+    align-items: flex-start;
+    margin-right: auto;
+    justify-content: center;
+  } */
+
   .navbar__links {
     list-style: none;
     display: flex;
     gap: 1.5rem;
     margin: 0;
     padding: 0;
+  }
+  
+  .navbar__links a:hover {
+    text-decoration: underline;
   }
   
   .navbar__links a {
