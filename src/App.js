@@ -20,7 +20,8 @@ import Expenses from './pages/Expenses';
 import ExpensesStyles from './pages/Expenses.css';
 import Budgeting from './pages/Budgeting';
 import BudgetingStyles from './pages/Budgeting.css'
-import About from './pages/about';
+import About from './pages/About';
+import AboutStyles from './pages/About.css';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/income" element={<Income className={IncomeStyles.Income}/>}/>
           <Route path="/expenses" element={<Expenses className={ExpensesStyles.Expenses}/>}/>
           <Route path="/budgeting" element={<Budgeting className={BudgetingStyles.Budgeting}/>}/>
+          <Route path="/about" element={<About className={AboutStyles.About}/>} />
         </Routes>
         <Footer className={footerStyles.footer}/>
       </BrowserRouter>
