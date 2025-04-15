@@ -3,6 +3,7 @@ import './HomePage.css';
 import piggyBank from '../images/piggyBankLogo.png';
 // import budgetBudLogo from '../images/logo.png';
 // import Navbar from './components/Navbar';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
   return (
@@ -17,7 +18,9 @@ function HomePage() {
             all-in-one budgeting companion—designed to help you track income, 
             monitor expenses, and visualize your financial habits.
           </p>
-          <button className="btn smart-spend-btn">Try BudgetBud</button>
+          <Link to="/signup" className="navbar__link">
+            <button className="btn smart-spend-btn">Try BudgetBud</button>
+          </Link>
         </div>
         <div className="hero__image">
           <img src={piggyBank} alt="piggy" />

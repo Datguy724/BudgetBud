@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { FaGoogle, FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
 // import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignUp() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -20,6 +22,12 @@ function SignUp() {
     setIsLoading(false);
   };
 
+    const onError = (formErrors) => {
+      Object.values(formErrors).forEach(error => {
+        toast.error(error.message);
+      });
+    };
+
   return (
     <div className="signup-page">
       <div className="signup-form">
@@ -28,34 +36,27 @@ function SignUp() {
             Create your account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="rounded-md shadow-sm space-y-4">
-            <div className="flex gap-4">
-              <div>
-                <label htmlFor="firstName" className="sr-only">First Name</label>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit, onError)}>
+          <div className="form-component rounded-md shadow-sm space-y-4">
+              <div className="label w-full mb-4 text-center">
                 <input
-                  {...register("firstName", { required: "First name is required" })}
+                  {...register("firstName", { required: "First name is required"})}
                   type="text"
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="First Name"
+                  placeholder='First name'
                 />
-                {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>}
               </div>
-              <div>
-                <label htmlFor="lastName" className="sr-only">Last Name</label>
+              <div className="label w-full mb-4 text-center">
                 <input
                   {...register("lastName", { required: "Last name is required" })}
                   type="text"
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Last Name"
+                  placeholder='Last name'
                 />
-                {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>}
-              </div>
             </div>
             
-            <div>
-              <label htmlFor="email" className="sr-only">Email address</label>
-              <input
+            <div className="label w-full mb-4 text-center">
+                <input
                 {...register("email", { 
                   required: "Email is required",
                   pattern: {
@@ -65,13 +66,11 @@ function SignUp() {
                 })}
                 type="email"
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Email address"
+                placeholder='Email address'
               />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
             </div>
 
-            <div>
-              <label htmlFor="phone" className="sr-only">Phone Number</label>
+            <div className="label w-full mb-4 text-center">
               <input
                 {...register("phone", { 
                   required: "Phone number is required",
@@ -82,13 +81,11 @@ function SignUp() {
                 })}
                 type="tel"
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Phone Number"
+                placeholder='Phone number'
               />
-              {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
             </div>
 
-            <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+            <div className="label w-full mb-4 text-center">
               <input
                 {...register("password", { 
                   required: "Password is required",
@@ -99,13 +96,11 @@ function SignUp() {
                 })}
                 type="password"
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Password"
+                placeholder='Password'
               />
-              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
             </div>
 
-            <div>
-              <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
+            <div className="label w-full mb-4 text-center">
               <input
                 {...register("confirmPassword", { 
                   required: "Please confirm your password",
@@ -113,9 +108,8 @@ function SignUp() {
                 })}
                 type="password"
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Confirm Password"
+                placeholder='Confirm password'
               />
-              {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>}
             </div>
           </div>
 
@@ -123,13 +117,13 @@ function SignUp() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="signup-btn group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               {isLoading ? "Creating account..." : "Sign up"}
             </button>
           </div>
 
-          <div className="mt-6">
+          <div className="form-bottom mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
@@ -139,10 +133,10 @@ function SignUp() {
               </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="continue mt-6 grid grid-cols-2 gap-3">
               <button
                 type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                className="auth-btn w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
               >
                 <FaGoogle className="w-5 h-5 text-red-500" />
                 <span className="ml-2">Google</span>
@@ -150,7 +144,7 @@ function SignUp() {
 
               <button
                 type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                className="auth-btn w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
               >
                 <FaFacebook className="w-5 h-5 text-blue-600" />
                 <span className="ml-2">Facebook</span>
@@ -161,11 +155,12 @@ function SignUp() {
 
         <p className="mt-2 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
+          <Link to="/signin" className="font-medium text-blue-600 hover:text-blue-500">
             Sign in here
           </Link>
         </p>
       </div>
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 }

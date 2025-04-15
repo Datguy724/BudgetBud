@@ -1,13 +1,18 @@
 import React from "react";
 // import budgetBudLogo from '../images/logo.png';
 import logo from '../images/logo.png';
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { Link } from "react-router-dom";
+import './Navbar.css';
 
 function Navbar(){
     return (
         <nav className="navbar">
             {/* <div className="navbar__left"> */}
             <div className="navbar__logo-container">
-                <img src={logo} alt="BudgetBud Logo" className="navbar__logo" />
+                <Link to="/" className="navbar__link">
+                    <img src={logo} alt="BudgetBud Logo" className="navbar__logo" />
+                </Link>
             </div>
 
             <ul className="navbar__links">
@@ -17,8 +22,12 @@ function Navbar(){
             </ul>
             {/* </div> */}
                 <div className="navbar__right">
-                <button className="btn login-btn">Login</button>
-                <button className="btn cta-btn">Try BudgetBud</button>
+                <Link to="/signin" className="navbar__link">
+                    <button className="btn login-btn">Login</button>
+                </Link>
+                <Link to="/signup" className="navbar__link">
+                    <button className="btn cta-btn">Try BudgetBud</button>
+                </Link>
             </div>
         </nav>
     );

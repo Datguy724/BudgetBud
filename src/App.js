@@ -20,6 +20,7 @@ import Expenses from './pages/Expenses';
 import ExpensesStyles from './pages/Expenses.css';
 import Budgeting from './pages/Budgeting';
 import BudgetingStyles from './pages/Budgeting.css'
+import About from './pages/about';
 
 function App() {
   return (
