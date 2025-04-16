@@ -8,9 +8,31 @@
 
 .about-bg1 {
     width: 100%;
+    max-width: 1920px;
     height: auto;
-    display: block;
-    object-fit: cover;
+    display:block;
+}
+
+.about-overlay-text {
+    position:absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Shadow for better readability */
+    font-weight: bold;
+}
+
+.about-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 1920px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+    /* overflow: hidden; Hide overflow for rounded corners */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .about-page {

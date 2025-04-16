@@ -1,6 +1,6 @@
 import React from 'react';
 import './About.css';
-import aboutBg1 from '../images/about-bg1.jpg';
+import aboutBg1 from '../images/aboutbg1.avif';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faTwitter, faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -8,7 +8,10 @@ import { faInstagram, faTwitter, faFacebook } from '@fortawesome/free-brands-svg
 function About() {
   return (
     <div className="about-page">
-      <img src={aboutBg1} alt="About Background" className="about-bg1" />
+      <div className="about-image-container">
+        <img src={aboutBg1} alt="About Background" className="about-bg1" />
+        <h1 className="about-overlay-text">Welcome to BudgetBud</h1>
+      </div>
       <div className="about-content">
         <h1 className="about-title">About BudgetBud</h1>
         <p className="about-description">
@@ -37,10 +40,10 @@ function About() {
         </p>
         <div className="contact-info">
           <p><FontAwesomeIcon icon={faEnvelope}/> Email: support@budgetbud.com</p>
-          <p>Phone Number: +1 (123) 456-7890</p>
-          <p>Instagram: @budgetbud</p>
-          <p>Twitter: @budgetbud</p>
-          <p>Facebook: BudgetBud</p>
+          <p><FontAwesomeIcon icon={faPhone}/> Phone Number: +1 (123) 456-7890</p>
+          <p><FontAwesomeIcon icon={faInstagram}/> Instagram: @budgetbud</p>
+          <p><FontAwesomeIcon icon={faTwitter}/> Twitter: @budgetbud</p>
+          <p><FontAwesomeIcon icon={faFacebook}/> Facebook: BudgetBud</p>
         </div>
         <p className="contact-description">
           We would love to hear from you!

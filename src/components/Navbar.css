@@ -5,6 +5,7 @@
     padding: 1rem;
     background-color: #2d3a45;
     color: #ffffff;
+    z-index: 1000;
   } 
   
   .navbar__logo {
