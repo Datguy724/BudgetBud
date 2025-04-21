@@ -70,6 +70,11 @@ html, body {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #333;
+    padding-top: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
   }
   
   /* TABS */
@@ -179,4 +184,13 @@ html, body {
   
   Link {
     text-decoration: none;
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f3f4f6; /* Light background */
+    font-size: 1.5rem; /* Larger font size */
   }

@@ -24,7 +24,7 @@ const SignIn = () => {
         <h2 className="text-3xl font-bold mb-6">Login to your Account</h2>
         
         <div className="label w-full mb-4 text-center">
-          <label htmlFor="email" className="sr-only">Email address: </label>
+          <label htmlFor="email" className="sr-only"></label>
           <input
             {...register("email", { 
               required: "Email is required",
@@ -35,15 +35,17 @@ const SignIn = () => {
             })}
             type="email"
             className="txt-field text-center appearance-none rounded-md block w-80 mx-auto px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Email address"
           />
         </div>
 
         <div className="label w-full mb-6 text-center">
-          <label htmlFor="password" className="sr-only">Password: </label>
+          <label htmlFor="password" className="sr-only"></label>
           <input
             {...register("password", { required: "Password is required" })}
             type="password"
             className="txt-field appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Password"
           />
         </div>
 

@@ -1,0 +1,10 @@
+.not-found-page {
+    width: 100vw; /* Makes it span the full width of the screen */
+    height: 100vh; /* Makes it span the full height of the screen */
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 80px; /* Space for the bottom nav */
+    justify-content: center; /* Ensures content is centered vertically */
+    align-items: center; /* Centers content horizontally */
+    text-align: center;
+}

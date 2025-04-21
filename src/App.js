@@ -12,7 +12,7 @@ import SignUp from './pages/signup';
 import signupStyles from './pages/signup.css';
 import SignIn from './pages/signin';
 import signinStyles from './pages/signin.css';
-import Dashboard from './pages/Dashboard';
+import DashboardPage from './pages/Dashboard';
 import dashboardStyles from './pages/Dashboard.css';
 import Income from './pages/Income';
 import IncomeStyles from './pages/Income.css';
@@ -22,7 +22,8 @@ import Budgeting from './pages/Budgeting';
 import BudgetingStyles from './pages/Budgeting.css'
 import About from './pages/About';
 import AboutStyles from './pages/About.css';
-
+import NotFoundPage from './pages/NotFoundPage';
+import notFoundPageStyles from './pages/NotFoundPage.css';
 function App() {
   return (
     <div className="App">
@@ -32,11 +33,12 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/signup" element={<SignUp className={signupStyles.signup}/>} />
           <Route path="/signin" element={<SignIn className={signinStyles.signin}/>} />
-          <Route path="/dashboard" element={<Dashboard className={dashboardStyles.Dashboard}/>} />
+          <Route path="/dashboard" element={<DashboardPage className={dashboardStyles.DashboardPage}/>} />
           <Route path="/income" element={<Income className={IncomeStyles.Income}/>}/>
           <Route path="/expenses" element={<Expenses className={ExpensesStyles.Expenses}/>}/>
           <Route path="/budgeting" element={<Budgeting className={BudgetingStyles.Budgeting}/>}/>
           <Route path="/about" element={<About className={AboutStyles.About}/>} />
+          <Route path="*" element={<NotFoundPage className={notFoundPageStyles.NotFoundPage} />} />
         </Routes>
         <Footer className={footerStyles.footer}/>
       </BrowserRouter>
