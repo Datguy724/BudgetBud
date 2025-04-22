@@ -1,23 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 // import budgetBudLogo from '../images/logo.png';
 import logo from '../images/logo.png';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Navbar.css';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/AuthContext.js";
 
 function Navbar(){
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const { isAuthenticated, logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        setIsAuthenticated(!!token);
-    }, []);
-
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        setIsAuthenticated(false);
+        logout();
         navigate("/");
     };
 
@@ -31,9 +24,21 @@ function Navbar(){
             </div>
 
             <ul className="navbar__links">
-                <li><a href="../about">About Us</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#resources">Resources</a></li>
+                {isAuthenticated ? (
+                    <>
+                        <li><Link to="/dashboard" className="navbar__link">Dashboard</Link></li>
+                        <li><Link to="/income" className="navbar__link">Income</Link></li>
+                        <li><Link to="/expenses" className="navbar__link">Expenses</Link></li>
+                        <li><Link to="/budgeting" className="navbar__link">Budgeting</Link></li>
+                    </>
+                ) : (
+                    <>
+                    <li><Link to="/" className="navbar__link">Home</Link></li>
+                    <li><Link to="/about">About Us</Link></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    </>
+                )}
             </ul>
             {/* </div> */}
             <div className="navbar__right">

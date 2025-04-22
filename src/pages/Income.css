@@ -5,49 +5,15 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f3f4f6; /* Light gray background */
+    height: 100vh; /* Ensures full screen height */
+    width: 100vw; /* Full width */
   }
   
   .income-page {
     display: flex;
     flex-direction: column;
     height: 100vh;
-  }
-  
-  /* TOP NAV */
-  .top-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2d3a45;
-    padding: 1rem;
-    color: #ffffff;
-  }
-  
-  .logo {
-    font-size: 1.25rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo-icon {
-    margin-right: 0.5rem;
-    font-weight: bold;
-  }
-  
-  .nav-right .nav-home-link {
-    text-decoration: none;
-    color: #ffffff;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid #ffffff;
-    border-radius: 4px;
-  }
-  
-  .nav-right .nav-home-link:hover {
-    background-color: #ffffff;
-    color: #2d3a45;
+    width: 100vw; /* Full width */
   }
   
   /* MAIN CONTENT */
@@ -61,6 +27,11 @@ body {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #333;
+    padding-top: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
   }
   
   /* TABS */

@@ -9,11 +9,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function SignUp() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   
-  const password = watch("password");
 
   const handleSignup = async (data) => {
     setIsLoading(true);

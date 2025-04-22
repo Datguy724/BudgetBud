@@ -1,12 +1,12 @@
 import './App.css';
 // import Header from './components/Header';
 import Home from './pages/Home.js';
-// import About from './pages/about';
 // import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import navbarStyles from './components/Navbar.css';
 import footerStyles from './components/Footer.css'
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from './pages/signup.js';
 import signupStyles from './pages/signup.css';
@@ -24,9 +24,12 @@ import About from './pages/About.js';
 import AboutStyles from './pages/About.css';
 import NotFoundPage from './pages/NotFoundPage.js';
 import notFoundPageStyles from './pages/NotFoundPage.css';
+import { AuthProvider } from './context/AuthContext.js';
+
 function App() {
   return (
     <div className="App">
+      <AuthProvider>
       <BrowserRouter>
         <Navbar className={navbarStyles.navbar}/>
         <Routes>
@@ -42,6 +45,7 @@ function App() {
         </Routes>
         <Footer className={footerStyles.footer}/>
       </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }

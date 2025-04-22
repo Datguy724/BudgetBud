@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import './signin.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import { set } from 'mongoose';
-import { useState } from 'react';
+import { AuthContext } from '../context/AuthContext.js';
+
 const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (data) => {
     setIsLoading(true);
@@ -27,7 +26,7 @@ const SignIn = () => {
       if (!response.ok) {
         throw new Error(result.message || "Login Failed");
       }
-      localStorage.setItem("token", result.token);
+      login(data.token);
       toast.success("Login successful!");
       navigate("/dashboard");
     } catch (error) {

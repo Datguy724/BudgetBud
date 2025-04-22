@@ -115,18 +115,6 @@ function BudgetingPage() {
 
   return (
     <div className="budgeting-page">
-      {/* TOP NAV */}
-      <nav className="top-nav">
-        <div className="nav-left">
-          <div className="logo">
-            <span className="logo-icon">$</span> BudgetBud
-          </div>
-        </div>
-        <div className="nav-right">
-          <Link to="/" className="nav-home-link">Home</Link>
-        </div>
-      </nav>
-
       <main className="main-content">
         <h1 className="budget-title">Budgeting</h1>
 

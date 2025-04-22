@@ -43,18 +43,6 @@ function ExpensesPage() {
 
   return (
     <div className="expenses-page">
-      {/* TOP NAVIGATION */}
-      <nav className="top-nav">
-        <div className="nav-left">
-          <div className="logo">
-            <span className="logo-icon">$</span> BudgetBud
-          </div>
-        </div>
-        <div className="nav-right">
-          <Link to="/" className="nav-home-link">Home</Link>
-        </div>
-      </nav>
-
       <main className="main-content">
         {/* PAGE TITLE */}
         <h1 className="expenses-title">Expenses</h1>
