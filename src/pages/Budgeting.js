@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Budgeting.css';
 
 // We’ll need our Expenses to determine how much each category has spent
-import { ExpensesContext } from '../context/ExpensesContext';
+import { ExpensesContext } from '../context/ExpensesContext.js';
 
 // Chart imports
 import { Bar } from 'react-chartjs-2';

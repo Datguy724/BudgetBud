@@ -18,7 +18,7 @@ function SignUp() {
   const handleSignup = async (data) => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/signup", {
+      const response = await fetch("http://localhost:5001/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,25 +54,22 @@ function SignUp() {
             Create your account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit, onError)}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit(handleSignup, onError)}>
           <div className="form-component rounded-md shadow-sm space-y-4">
               <div className="label w-full mb-4 text-center">
                 <input
-                  {...register("firstName", { required: "First name is required"})}
+                  {...register("username", { 
+                  required: "Username is required",
+                  minLength: {
+                    value: 3,
+                    message: "Username must be at least 3 characters"
+                  }
+                })}
                   type="text"
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  placeholder='First name'
+                  placeholder='Username'
                 />
               </div>
-              <div className="label w-full mb-4 text-center">
-                <input
-                  {...register("lastName", { required: "Last name is required" })}
-                  type="text"
-                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  placeholder='Last name'
-                />
-            </div>
-            
             <div className="label w-full mb-4 text-center">
                 <input
                 {...register("email", { 
@@ -88,21 +85,7 @@ function SignUp() {
               />
             </div>
 
-            <div className="label w-full mb-4 text-center">
-              <input
-                {...register("phone", { 
-                  required: "Phone number is required",
-                  pattern: {
-                    value: /^\d{10}$/,
-                    message: "Please enter a valid 10-digit phone number"
-                  }
-                })}
-                type="tel"
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder='Phone number'
-              />
-            </div>
-
+          
             <div className="label w-full mb-4 text-center">
               <input
                 {...register("password", { 
@@ -116,21 +99,8 @@ function SignUp() {
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder='Password'
               />
-            </div>
-
-            <div className="label w-full mb-4 text-center">
-              <input
-                {...register("confirmPassword", { 
-                  required: "Please confirm your password",
-                  validate: value => value === password || "Passwords do not match"
-                })}
-                type="password"
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder='Confirm password'
-              />
-            </div>
+            </div>     
           </div>
-
           <div>
             <button
               type="submit"

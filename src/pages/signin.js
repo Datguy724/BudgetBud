@@ -3,26 +3,25 @@ import { useForm } from 'react-hook-form';
 import './signin.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import e from 'cors';
+import { useNavigate } from 'react-router-dom';
 import { set } from 'mongoose';
-
+import { useState } from 'react';
 const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const handleLogin = async (data) => {
-    e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch ("http://localhost:5000/api/auth/login", {
+      const response = await fetch ("http://localhost:5001/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify(data),
       });
       const result = await response.json();
       if (!response.ok) {
@@ -33,6 +32,8 @@ const SignIn = () => {
       navigate("/dashboard");
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -48,18 +49,18 @@ const SignIn = () => {
         <h2 className="text-3xl font-bold mb-6">Login to your Account</h2>
         
         <div className="label w-full mb-4 text-center">
-          <label htmlFor="email" className="sr-only"></label>
+          <label htmlFor="username" className="sr-only"></label>
           <input
-            {...register("email", { 
-              required: "Email is required",
+            {...register("username", { 
+              required: "Username is required",
               pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "Invalid email address"
+                value: /^[a-zA-Z0-9]+$/,
+                message: "Invalid username"
               }
             })}
-            type="email"
+            type="username"
             className="txt-field text-center appearance-none rounded-md block w-80 mx-auto px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Email address"
+            placeholder="Username"
           />
         </div>
 

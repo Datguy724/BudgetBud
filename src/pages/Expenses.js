@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Expenses.css';
-import { ExpensesContext } from '../context/ExpensesContext';
+import { ExpensesContext } from '../context/ExpensesContext.js';
 
 function ExpensesPage() {
   // Access expenses and the addExpense function from context
