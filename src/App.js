@@ -22,8 +22,6 @@ import Budgeting from './pages/Budgeting';
 import BudgetingStyles from './pages/Budgeting.css'
 import About from './pages/About';
 import AboutStyles from './pages/about.css';
-
-import AboutStyles from './pages/About.css';
 import NotFoundPage from './pages/NotFoundPage';
 import notFoundPageStyles from './pages/NotFoundPage.css';
 function App() {

@@ -3,13 +3,37 @@ import { useForm } from 'react-hook-form';
 import './signin.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import e from 'cors';
+import { set } from 'mongoose';
 
 const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle sign in logic here
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const handleLogin = async (data) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await fetch ("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || "Login Failed");
+      }
+      localStorage.setItem("token", result.token);
+      toast.success("Login successful!");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const onError = (formErrors) => {
@@ -20,7 +44,7 @@ const SignIn = () => {
 
   return (
     <div className="signin-page">
-      <form onSubmit={handleSubmit(onSubmit, onError)} className="signin-form">
+      <form onSubmit={handleSubmit(handleLogin, onError)} className="signin-form">
         <h2 className="text-3xl font-bold mb-6">Login to your Account</h2>
         
         <div className="label w-full mb-4 text-center">

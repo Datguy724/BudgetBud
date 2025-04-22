@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { FaGoogle, FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { FaGoogle, FaFacebook } from 'react-icons/fa';
 // import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,11 +15,29 @@ function SignUp() {
   
   const password = watch("password");
 
-  const onSubmit = async (data) => {
+  const handleSignup = async (data) => {
     setIsLoading(true);
-    // Handle form submission logic here
-    console.log(data);
-    setIsLoading(false);
+    try {
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || "Something went wrong");
+      }
+
+      toast.success("Account created successfully!");
+      navigate("/signin");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      console.log(data);
+      setIsLoading(false);
+    }
   };
 
     const onError = (formErrors) => {
