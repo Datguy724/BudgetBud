@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+/* Ensure the entire viewport height is used */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full screen height */
+}
+
+/* Navbar stays at the top */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #2d3a45;
+  color: white;
+  padding: 1em;
+}
+
+/* Footer stays at the bottom */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #2d3a45;
+  color: white;
+  padding: 1em;
+}
+
+/* Main content expands in the middle */
+.content {
+  flex: 1; /* Makes sure the content takes available space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}

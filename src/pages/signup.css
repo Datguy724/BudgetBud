@@ -1,0 +1,88 @@
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 100%; /* Full width */
+    max-width: 400px; /* Adjust as needed */
+    padding: 20px; /* Add some padding */
+    background-color: #f9f9f9; /* Light background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.form-component {
+    display: flex;
+    flex-direction:column;
+    margin-bottom: 0.5rem;
+    width: 100%; /* Full width */
+    padding: 10px; /* Add some padding */
+    font-size: 16px;
+    display: flex;
+    margin-bottom: 10px; /* Space below each input */
+    gap: 10px; /* Space between elements */
+    border-radius: 2rem;
+}
+
+.signup-btn {
+    background-color: #809ec0; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.signup-btn:hover {
+    background-color: #6c7d99; /* Darker shade on hover */
+  }
+
+.label input {
+    width: 100%; /* Full width */
+    padding: 5px; /* Add some padding */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px;
+}
+
+::placeholder {
+    text-align: center;
+}
+
+.form-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.continue {
+    padding: 10px;
+}
+
+.auth-btn {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding:5px;
+    margin: 5px 0px;
+    background-color: white;
+}
