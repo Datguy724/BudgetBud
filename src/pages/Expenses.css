@@ -14,13 +14,14 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width: 100vw
+    width: 100vw;
   }
 
   /* MAIN CONTENT */
   .main-content {
     flex: 1;
     padding: 2rem;
+    margin-bottom: 4rem;
   }
   
   .expenses-title {
