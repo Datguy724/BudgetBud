@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import './signin.css';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.js';
+import './signin.css';
 
 const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -26,7 +26,9 @@ const SignIn = () => {
       if (!response.ok) {
         throw new Error(result.message || "Login Failed");
       }
-      login(data.token);
+      console.log("Login response:", result); // Debug log
+      console.log("Token received:", result.token); // Debug log
+      login(result.token);
       toast.success("Login successful!");
       navigate("/dashboard");
     } catch (error) {

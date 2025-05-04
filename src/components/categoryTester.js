@@ -6,16 +6,17 @@ import {
     getCategories,
     getCategoryById,
     updateCategory
-} from '../api/categories';
+} from '../api/categories.js';
 
 const CategoryTester = () => {
-  const token = 'YOUR_JWT_TOKEN_HERE'; // Replace with a real token
+  const token = localStorage.getItem('token');  // Retrieve token from localStorage
 
   useEffect(() => {
     const test = async () => {
       try {
+        console.log('Testing Category API...');
         // Create a new category
-        const newCat = await createCategory('Test Category', token);
+        const newCat = await createCategory('Test Category2', token);
         console.log('Created:', newCat);
 
         // Get all categories
@@ -23,15 +24,15 @@ const CategoryTester = () => {
         console.log('All Categories:', categories);
 
         // Get by ID
-        const single = await getCategoryById(newCat.id, token);
+        const single = await getCategoryById(newCat.category_id, token);
         console.log('Fetched Single:', single);
 
         // Update it
-        const updated = await updateCategory(newCat.id, 'Updated Name', token);
+        const updated = await updateCategory(newCat.category_id, 'Updated Name', token);
         console.log('Updated:', updated);
 
         // Delete it
-        const deletedMsg = await deleteCategory(newCat.id, token);
+        const deletedMsg = await deleteCategory(newCat.category_id, token);
         console.log('Deleted:', deletedMsg);
       } catch (err) {
         console.error('Error:', err.message);

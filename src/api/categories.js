@@ -10,7 +10,8 @@ const handleResponse = async (res) => {
 };
 
 export const getCategories = async (token) => {
-  const res = await fetch(`${API_BASE_URL}/categories`, {
+  console.log(`${API_BASE_URL}/api/categories`)
+  const res = await fetch(`${API_BASE_URL}/api/categories`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -20,7 +21,8 @@ export const getCategories = async (token) => {
 };
 
 export const createCategory = async (name, token) => {
-  const res = await fetch(`${API_BASE_URL}/categories`, {
+  console.log('Creating category:', name, token); // Debug log
+  const res = await fetch(`${API_BASE_URL}/api/categories`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -33,7 +35,7 @@ export const createCategory = async (name, token) => {
 };
 
 export const updateCategory = async (id, name, token) => {
-  const res = await fetch(`${API_BASE_URL}/categories/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/api/categories/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -46,7 +48,7 @@ export const updateCategory = async (id, name, token) => {
 };
 
 export const deleteCategory = async (id, token) => {
-  const res = await fetch(`${API_BASE_URL}/categories/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/api/categories/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`
@@ -57,7 +59,7 @@ export const deleteCategory = async (id, token) => {
 };
 
 export const getCategoryById = async (id, token) => {
-  const res = await fetch(`${API_BASE_URL}/categories/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/api/categories/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }

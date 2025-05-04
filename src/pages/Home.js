@@ -4,13 +4,12 @@ import './HomePage.css';
 // import budgetBudLogo from '../images/logo.png';
 // import Navbar from './components/Navbar';
 import { Link } from 'react-router-dom';
-import CategoryTester from '../components/categoryTester';
 
 function HomePage() {
   return (
     <div className="home-page">
       {/* Uncomment to test category API */}
-      {<CategoryTester />}
+      {/* <CategoryTester /> */}
 
       {/* NAVBAR */}
       {/* HERO SECTION */}
