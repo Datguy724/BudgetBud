@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createCategory } from '../api/categories.js';
-import { getBudgets, createBudget, updateBudget } from '../api/budgets.js';
+import { getBudgets, createBudget, updateBudget, deleteBudget } from '../api/budgets.js';
 import './Budgeting.css';
 
 // Chart imports
@@ -24,6 +24,7 @@ function BudgetingPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
   
   const token = localStorage.getItem('token');
   const today = new Date();
@@ -123,6 +124,26 @@ function BudgetingPage() {
     } catch (err) {
       console.error('Error creating category with budget:', err);
       setError(`Failed to create category with budget: ${err.message}`);
+    }
+  };
+
+  // Delete budget handler
+  const handleDeleteBudget = async (budgetId) => {
+    if (!window.confirm('Are you sure you want to delete this budget?')) {
+      return;
+    }
+
+    setDeletingId(budgetId);
+    try {
+      await deleteBudget(budgetId, token);
+      // Refresh the budgets list after successful deletion
+      await fetchBudgets();
+      setError(null);
+    } catch (err) {
+      console.error('Error deleting budget:', err);
+      setError(`Failed to delete budget: ${err.message}`);
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -254,6 +275,7 @@ function BudgetingPage() {
                   <th>Spent</th>
                   <th>Remaining</th>
                   <th>Usage</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -274,6 +296,15 @@ function BudgetingPage() {
                           {(budget.percentage_used || 0).toFixed(1)}%
                         </div>
                       </div>
+                    </td>
+                    <td>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDeleteBudget(budget.budget_id)}
+                        disabled={deletingId === budget.budget_id}
+                      >
+                        {deletingId === budget.budget_id ? 'Deleting...' : 'Delete'}
+                      </button>
                     </td>
                   </tr>
                 ))}
