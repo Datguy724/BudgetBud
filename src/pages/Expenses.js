@@ -1,14 +1,19 @@
-// ExpensesPage.js
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getCategories } from '../api/categories.js';
+import {
+  createExpense,
+  deleteExpense // ✅ Make sure this is defined in your ../api/expenses.js
+  ,
+  getExpenses
+} from '../api/expenses.js';
 import './Expenses.css';
-import { ExpensesContext } from '../context/ExpensesContext.js';
 
 function ExpensesPage() {
-  // Access expenses and the addExpense function from context
-  const { expenses, addExpense } = useContext(ExpensesContext);
-
-  // Local state for the “Add expense” form
+  const [expenses, setExpenses] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [expenseInput, setExpenseInput] = useState({
     date: '',
     name: '',
@@ -16,79 +21,100 @@ function ExpensesPage() {
     category: ''
   });
 
-  // Update local form state
+  const token = localStorage.getItem('token');
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [expensesData, categoriesData] = await Promise.all([
+          getExpenses(month, year, null, token),
+          getCategories(token)
+        ]);
+        setExpenses(expensesData.expenses || []);
+        setCategories(categoriesData || []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [token, month, year]);
+
   const handleChange = (e) => {
     setExpenseInput({ ...expenseInput, [e.target.name]: e.target.value });
   };
 
-  // Handle the "Add expense" button
-  const handleAddExpense = () => {
-    const newExpense = {
-      id: String(Date.now()),       // quick unique ID
-      date: expenseInput.date,
-      name: expenseInput.name,
-      amount: parseFloat(expenseInput.amount) || 0,
-      category: expenseInput.category
-    };
-    addExpense(newExpense);
+  const handleAddExpense = async () => {
+    try {
+      const newExpense = {
+        date: expenseInput.date,
+        name: expenseInput.name,
+        amount: parseFloat(expenseInput.amount) || 0,
+        category_id: expenseInput.category
+      };
+      const response = await createExpense(newExpense, token);
+      setExpenses((prev) => [...prev, response.expense]);
+      setExpenseInput({ date: '', name: '', amount: '', category: '' });
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
-    // Clear the form
-    setExpenseInput({
-      date: '',
-      name: '',
-      amount: '',
-      category: ''
-    });
+  // ✅ Correct delete function
+  const handleDeleteExpense = async (id) => {
+    try {
+      await deleteExpense(id, token);
+      window.location.reload(); // Just refresh
+    } catch (err) {
+      setError('Failed to delete expense');
+    }
   };
 
   return (
     <div className="expenses-page">
       <main className="main-content">
-        {/* PAGE TITLE */}
         <h1 className="expenses-title">Expenses</h1>
 
-        {/* TAB MENU */}
         <ul className="dashboard-tabs">
-          <li>
-            <Link to="/dashboard">Financial Overview</Link>
-          </li>
-          <li>
-            <Link to="/income">Income</Link>
-          </li>
-          <li className="active-tab">
-            <Link to="/expenses">Expenses</Link>
-          </li>
-          <li>
-            <Link to="/budgeting">Budget Categories</Link>
-          </li>
+          <li><Link to="/dashboard">Financial Overview</Link></li>
+          <li><Link to="/income">Income</Link></li>
+          <li className="active-tab"><Link to="/expenses">Expenses</Link></li>
+          <li><Link to="/budgeting">Budget Categories</Link></li>
         </ul>
 
-        {/* EXPENSES LIST/ENTRIES */}
-        <div className="expenses-entries">
-          {/* Table header */}
-          <div className="expense-row header">
-            <div className="expense-cell">Date</div>
-            <div className="expense-cell">Expense Name</div>
-            <div className="expense-cell">Amount</div>
-            <div className="expense-cell">Category</div>
-            <div className="expense-cell">Actions</div>
-          </div>
-
-          {/* Render each expense from context */}
-          {expenses.map((exp) => (
-            <div className="expense-row" key={exp.id}>
-              <div className="expense-cell">{exp.date}</div>
-              <div className="expense-cell">{exp.name}</div>
-              <div className="expense-cell">${exp.amount}</div>
-              <div className="expense-cell">{exp.category}</div>
-              <div className="expense-cell">
-                <button className="edit-btn">Edit/Delete</button>
-              </div>
+        {loading ? (
+          <p>Loading expenses...</p>
+        ) : error ? (
+          <p className="error">{error}</p>
+        ) : (
+          <div className="expenses-entries">
+            <div className="expense-row header">
+              <div className="expense-cell">Date</div>
+              <div className="expense-cell">Amount</div>
+              <div className="expense-cell">Category</div>
+              <div className="expense-cell">Actions</div>
             </div>
-          ))}
-        </div>
 
-        {/* NEW EXPENSE FORM */}
+            {expenses.map((exp) => (
+              <div className="expense-row" key={exp.expense_id}>
+                <div className="expense-cell">{exp.date}</div>
+                <div className="expense-cell">${exp.amount.toFixed(2)}</div>
+                <div className="expense-cell">{exp.category_name}</div>
+                <div className="expense-cell">
+                  <button className="edit-btn" onClick={() => handleDeleteExpense(exp.expense_id)}>
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="expense-form">
           <input
             name="date"
@@ -111,13 +137,18 @@ function ExpensesPage() {
             value={expenseInput.amount}
             onChange={handleChange}
           />
-          <input
+          <select
             name="category"
-            type="text"
-            placeholder="Category"
             value={expenseInput.category}
             onChange={handleChange}
-          />
+          >
+            <option value="">Select Category</option>
+            {categories.map((cat) => (
+              <option key={cat.category_id || cat.name} value={cat.category_id || cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
           <button className="add-btn" onClick={handleAddExpense}>
             Add expense
           </button>

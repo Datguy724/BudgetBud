@@ -1,21 +1,21 @@
 // DashboardPage.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // <-- Import Link
+import { getDashboard } from '../api/dashboard.js'; // Adjust the import path as necessary
 import './Dashboard.css';
-import axios from 'axios';
 
-import { Pie, Line } from 'react-chartjs-2';
 import {
-  Chart as ChartJS,
   ArcElement,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
   LinearScale,
-  PointElement,
   LineElement,
+  PointElement,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 } from 'chart.js';
+import { Line, Pie } from 'react-chartjs-2';
 
 ChartJS.register(
   ArcElement,
@@ -36,6 +36,7 @@ function DashboardPage() {
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1; // Months are zero-indexed in JavaScript
   const currentYear = currentDate.getFullYear();
+  const token = localStorage.getItem('token'); // Assuming the token is in localStorage
 
   // Example Pie chart data
   const pieData = dashboardData?.budget_summary ? {
@@ -102,26 +103,27 @@ function DashboardPage() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const res = await axios.get(`/api/dashboard?month=${currentMonth}&year=${currentYear}`);
-        setDashboardData(res.data);
+        const data = await getDashboard(currentMonth, currentYear, token); // Replaced axios with getDashboard
+        setDashboardData(data);
       } catch (err) {
         setError('Error fetching dashboard data');
         console.error(err);
       }
     };
-      const fetchSavingsData = async () => {
-        try {
-          const res = await axios.get(`/api/dashboard/savings`);
-          setSavingsData(res.data);
-        } catch (err) {
-          setError('Error fetching savings data');
-          console.error(err);
-        } 
-      };
+
+    /*const fetchSavingsData = async () => {
+      try {
+        const data = await getSavings(token); // Replaced axios with getSavings
+        setSavingsData(data);
+      } catch (err) {
+        setError('Error fetching savings data');
+        console.error(err);
+      }
+    };*/
 
     fetchDashboardData();
-    fetchSavingsData();
-  }, [currentMonth, currentYear]);
+    //fetchSavingsData();
+  }, [currentMonth, currentYear, token]);
 
   // if (!dashboardData || !savingsData) {
   //   return <div className="loading">Loading...</div>;
@@ -129,28 +131,12 @@ function DashboardPage() {
 
   return (
     <div className="dashboard-page">
-{/* 
-      TOP NAVIGATION
-      <nav className="top-nav">
-        <div className="nav-left">
-          Logo or brand name
-          <div className="logo">
-            <span className="logo-icon">$</span> BudgetBud
-          </div>
-        </div>
-        <div className="nav-right">
-          Single "Home" link
-          <Link to="/" className="nav-home-link">Home</Link>
-        </div>
-      </nav> */}
-
-      {/* MAIN DASHBOARD CONTENT */}
+      {/* Main dashboard content */}
       <main className="main-content">
-
-        {/* PAGE TITLE */}
+        {/* CategoryTester Component for testing API */}
         <h1 className="dashboard-title">Dashboard</h1>
 
-        {/* TAB MENU */}
+        {/* Tab Menu */}
         <ul className="dashboard-tabs">
           <li className="active-tab">Financial Overview</li>
           <li>
@@ -164,7 +150,7 @@ function DashboardPage() {
           </li>
         </ul>
 
-        {/* STATS CARDS */}
+        {/* Stats Cards */}
         <div className="stats-cards">
           <div className="card">
             <h2>Expected Income</h2>
@@ -188,18 +174,16 @@ function DashboardPage() {
           </div>
           <div className="card">
             <h2>Savings</h2>
-           <p className="amount">${dashboardData?.savings.toFixed(2) || "N/A"}</p>
+            <p className="amount">${dashboardData?.savings.toFixed(2) || "N/A"}</p>
           </div>
         </div>
 
-        {/* CHARTS SECTION */}
+        {/* Charts Section */}
         <div className="charts-section">
-
-          {/* CATEGORY SPENDING (PIE) */}
+          {/* Category Spending (Pie) */}
           <div className="chart-container">
             <h3>Category Spending</h3>
             <Pie data={pieData} options={pieOptions} />
-            {/* Example dropdown below the chart */}
             <div className="chart-dropdown">
               <label htmlFor="spending-range">View By</label>
               <select id="spending-range">
@@ -210,7 +194,7 @@ function DashboardPage() {
             </div>
           </div>
 
-          {/* SPENDING TRENDS (LINE) */}
+          {/* Savings Over Time (Line) */}
           <div className="chart-container">
             <h3>Savings Over Time</h3>
             {savingsData?.savings_by_period ? (
@@ -221,13 +205,14 @@ function DashboardPage() {
           </div>
 
         </div>
-        {/* RECENT TRANSACTIONS */}
+
+        {/* Recent Transactions */}
         {dashboardData?.recent_transactions?.length > 0 && (
           <div className="mt-4">
             <h2 className="text-lg font-semibold mb-4">Recent Transactions</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {dashboardData.recent_transactions.map((tx, i) => (
-                <div key={i} className ="bg-white shadow-md rounded-lg p-4">
+                <div key={i} className="bg-white shadow-md rounded-lg p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-semibold text-lg">{tx.description}</span>
                     <span className={`text-sm ${tx.amount < 0 ? 'text-green-500' : 'text-red-500'}`}>
@@ -237,8 +222,8 @@ function DashboardPage() {
                   <div className="text-sm text-gray-500">
                     <p>Date: {new Date(tx.date).toLocaleDateString()}</p>
                     <p>Category: {tx.category}</p>
-                    </div>
-                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>

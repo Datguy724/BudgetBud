@@ -1,31 +1,65 @@
 // BudgetingPage.js
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { createCategory, getCategories } from '../api/categories.js'; // adjust the path if needed
+import {
+  getExpenses
+} from '../api/expenses.js';
 import './Budgeting.css';
 
+
 // We’ll need our Expenses to determine how much each category has spent
-import { ExpensesContext } from '../context/ExpensesContext.js';
 
 // Chart imports
-import { Bar } from 'react-chartjs-2';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function BudgetingPage() {
-  const { expenses } = useContext(ExpensesContext);
+  const [expenses, setExpenses] = useState([]);
+  const token = localStorage.getItem('token');
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true); // optional: loading state
+  const [error, setError] = useState(null);     // optional: error state
+
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const [expensesData, categoriesData] = await Promise.all([
+          getExpenses(month, year, null, token),
+          getCategories(token)
+        ]);
+        setExpenses(expensesData.expenses || []);
+        console.log(expensesData)
+        setCategories(categoriesData || []);
+        const fetched = await getCategories(token);
+        setCategories(fetched);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, [token]);
 
   // local state for budget categories
   // each category: { name: string, limit: number }
-  const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
   // form inputs
@@ -48,69 +82,87 @@ function BudgetingPage() {
   };
 
   // add new category
-  const addCategory = () => {
+  const addCategory = async () => {
     const limitVal = parseFloat(formInput.limit) || 0;
-    const newCategory = { name: formInput.name.trim(), limit: limitVal };
-    setCategories((prev) => [...prev, newCategory]);
-
-    // reset form and close
+    const name = formInput.name.trim();
+  
+    if (!name) return;
+  
+    try {
+      const newCategory = await createCategory(name, token);
+      // append limit locally
+      setCategories((prev) => [...prev, { ...newCategory, limit: limitVal }]);
+    } catch (err) {
+      setError(err.message);
+    }
+  
     setFormInput({ name: '', limit: '' });
     setShowForm(false);
   };
+  
 
   // Build bar chart data for each category
   const labels = categories.map((cat) => cat.name);
   const withinBudgetData = [];
   const overBudgetData = [];
 
+  // Iterate through categories and calculate expenses for each one
   categories.forEach((cat) => {
-    // sum of all expenses with matching category name
+    console.log(`Processing category: ${cat.name}`);
+    console.log('expenses:', expenses);
+    // Calculate the total amount spent for the current category
     const totalSpent = expenses
-      .filter((exp) => exp.category.toLowerCase() === cat.name.toLowerCase())
+      .filter((exp) => exp.category_name.toLowerCase() === cat.name.toLowerCase())
       .reduce((acc, exp) => acc + exp.amount, 0);
 
-    if (totalSpent <= cat.limit) {
+    // Determine the budget status for each category
+    if (totalSpent <= 100) {
       withinBudgetData.push(totalSpent);
+      console.log(`Category: ${cat.name}, Spent: ${totalSpent}, Limit: ${100}`);
       overBudgetData.push(0);
     } else {
-      withinBudgetData.push(cat.limit);
-      overBudgetData.push(totalSpent - cat.limit);
+      console.log(`Category: ${cat.name}, Spent: ${totalSpent}, Limit: ${100} (Over Budget)`);
+      withinBudgetData.push(100);
+      overBudgetData.push(totalSpent - 100);
     }
   });
 
   // Prepare chart.js data
   const data = {
-    labels,
+    labels, // Category names as labels
     datasets: [
       {
         label: 'Within Budget',
-        data: withinBudgetData,
-        backgroundColor: '#36A2EB'
+        data: withinBudgetData, // Data for categories within budget
+        backgroundColor: '#36A2EB', // Blue color for within budget
       },
       {
         label: 'Over Budget',
-        data: overBudgetData,
-        backgroundColor: '#FF0000'
-      }
-    ]
+        data: overBudgetData, // Data for categories over budget
+        backgroundColor: '#FF0000', // Red color for over budget
+      },
+    ],
   };
 
   const options = {
     responsive: true,
-    stacked: true,
+    stacked: true, // Stacked bars
     plugins: {
       title: {
         display: true,
-        text: 'Budget vs. Expenses'
+        text: 'Budget vs. Expenses', // Title for the chart
       },
       legend: {
-        position: 'top'
-      }
+        position: 'top', // Position of the legend
+      },
     },
     scales: {
       x: { stacked: true },
-      y: { stacked: true, beginAtZero: true }
-    }
+      y: {
+        stacked: true,
+        beginAtZero: true, // Ensure the y-axis starts at zero
+      },
+    },
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
     , []);
 
     const login = (token) => {
+        console.log("Login called with token:", token); // Debug log
         localStorage.setItem("token", token);
         setIsAuthenticated(true);
     };
