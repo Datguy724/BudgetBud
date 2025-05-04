@@ -1,18 +1,14 @@
 import React from 'react';
-import piggyBank from '../images/piggyBankLogo.png';
 import './HomePage.css';
+import piggyBank from '../images/piggyBankLogo.png';
 // import budgetBudLogo from '../images/logo.png';
 // import Navbar from './components/Navbar';
 import { Link } from 'react-router-dom';
-import CategoryTester from '../components/categoryTester';
 
 function HomePage() {
   return (
     <div className="home-page">
-      {/* Uncomment to test category API */}
-      {<CategoryTester />}
 
-      {/* NAVBAR */}
       {/* HERO SECTION */}
       <section className="hero">
         <div className="hero__text">
