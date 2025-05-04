@@ -64,7 +64,7 @@ function IncomePage() {
       };
   
       const response = await createIncome(newIncomeData, token);
-      const savedIncome = response;
+      const savedIncome = response.income;
       console.log('Saved income:', savedIncome);
   
       if (!savedIncome) throw new Error("No data returned");
