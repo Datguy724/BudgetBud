@@ -326,3 +326,49 @@ body {
     padding: 0.75rem 0.5rem;
   }
 }
+
+.income-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.income-status.received {
+  background-color: rgba(102, 187, 106, 0.15);
+  color: var(--income-success);
+}
+
+.income-status.pending {
+  background-color: rgba(150, 201, 61, 0.15);
+  color: var(--income-secondary);
+}
+
+.mark-received-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.actual-amount-input {
+  width: 100px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.actual-amount-input:focus {
+  border-color: var(--income-primary);
+  box-shadow: 0 0 0 2px rgba(0, 176, 155, 0.2);
+  outline: none;
+}
+
+.income-cell:nth-child(4) {
+  color: var(--income-success);
+  font-weight: 600;
+}

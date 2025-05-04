@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { createIncome, deleteIncome, getIncomes } from '../api/income.js'; // Adjust the path if needed
+import { createIncome, deleteIncome, getIncomes, markIncomeReceived } from '../api/income.js'; // Adjust the path if needed
 import './Income.css';
 
 function IncomePage() {
@@ -17,6 +17,8 @@ function IncomePage() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [receivingId, setReceivingId] = useState(null);
+  const [actualAmount, setActualAmount] = useState('');
 
   // Fetch incomes on mount
   useEffect(() => {
@@ -77,13 +79,36 @@ function IncomePage() {
       setError('Failed to add income');
     }
   };
-  
+
+  // Handle marking income as received
+  const handleMarkReceived = async (incomeId) => {
+    try {
+      const amount = parseFloat(actualAmount);
+      if (isNaN(amount) || amount <= 0) {
+        setError('Please enter a valid amount');
+        return;
+      }
+
+      await markIncomeReceived(incomeId, amount, new Date().toISOString().split('T')[0], token);
+      
+      // Refresh incomes
+      const fetchedIncomes = await getIncomes(month, year, token);
+      setIncomes(fetchedIncomes.incomes);
+      
+      // Reset state
+      setReceivingId(null);
+      setActualAmount('');
+    } catch (err) {
+      console.error(err);
+      setError('Failed to mark income as received');
+    }
+  };
 
   // Handle deleting an income
   const handleDeleteIncome = async (id) => {
     try {
       await deleteIncome(id, token);
-      setIncomes(incomes.filter((income) => income.id !== id)); // Remove income from state
+      setIncomes(incomes.filter((income) => income.id !== id));
 
       window.location.reload();
     } catch (err) {
@@ -120,7 +145,9 @@ function IncomePage() {
           <div className="income-row header">
             <div className="income-cell">Date</div>
             <div className="income-cell">Source</div>
-            <div className="income-cell">Amount</div>
+            <div className="income-cell">Expected</div>
+            <div className="income-cell">Actual</div>
+            <div className="income-cell">Status</div>
             <div className="income-cell">Actions</div>
           </div>
 
@@ -132,6 +159,51 @@ function IncomePage() {
               <div className="income-cell">{income.source_name}</div>
               <div className="income-cell">${income.expected_amount}</div>
               <div className="income-cell">
+                {income.is_received ? `$${income.actual_amount}` : '-'}
+              </div>
+              <div className="income-cell">
+                <span className={`income-status ${income.is_received ? 'received' : 'pending'}`}>
+                  {income.is_received ? 'Received' : 'Pending'}
+                </span>
+              </div>
+              <div className="income-cell">
+                {!income.is_received && receivingId !== income.income_id && (
+                  <button 
+                    className="edit-btn" 
+                    onClick={() => {
+                      setReceivingId(income.income_id);
+                      setActualAmount(income.expected_amount.toString());
+                    }}
+                  >
+                    Mark Received
+                  </button>
+                )}
+                {receivingId === income.income_id && (
+                  <div className="mark-received-form">
+                    <input
+                      type="number"
+                      value={actualAmount}
+                      onChange={(e) => setActualAmount(e.target.value)}
+                      placeholder="Actual amount"
+                      className="actual-amount-input"
+                    />
+                    <button 
+                      className="edit-btn" 
+                      onClick={() => handleMarkReceived(income.income_id)}
+                    >
+                      ✓
+                    </button>
+                    <button 
+                      className="edit-btn" 
+                      onClick={() => {
+                        setReceivingId(null);
+                        setActualAmount('');
+                      }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
                 <button className="edit-btn" onClick={() => handleDeleteIncome(income.income_id)}>
                   Delete
                 </button>

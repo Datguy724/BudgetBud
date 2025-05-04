@@ -1,8 +1,8 @@
 // DashboardPage.js
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; // <-- Import Link
-import { getDashboard } from '../api/dashboard.js'; // Adjust the import path as necessary
-import './Dashboard.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // <-- Import Link
+import { getDashboard } from "../api/dashboard.js"; // Adjust the import path as necessary
+import "./Dashboard.css";
 
 import {
   ArcElement,
@@ -13,9 +13,9 @@ import {
   LineElement,
   PointElement,
   Title,
-  Tooltip
-} from 'chart.js';
-import { Line, Pie } from 'react-chartjs-2';
+  Tooltip,
+} from "chart.js";
+import { Line, Pie } from "react-chartjs-2";
 
 ChartJS.register(
   ArcElement,
@@ -29,84 +29,91 @@ ChartJS.register(
 );
 
 function DashboardPage() {
-  console.log('DashboardPage component rendered');
+  console.log("DashboardPage component rendered");
   const [dashboardData, setDashboardData] = useState(null);
   const [savingsData, setSavingsData] = useState(null);
   const [error, setError] = useState(null);
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1; // Months are zero-indexed in JavaScript
   const currentYear = currentDate.getFullYear();
-  const token = localStorage.getItem('token'); // Assuming the token is in localStorage
+  const token = localStorage.getItem("token"); // Assuming the token is in localStorage
 
   // Example Pie chart data
-  const pieData = dashboardData?.budget_summary ? {
-    labels: dashboardData?.budget_summary.map(cat => cat.category_name),
-    datasets: [
-      {
-        label: 'Category Spending',
-        data: dashboardData?.budget_summary.map(cat => cat.spent_amount),
-        backgroundColor: [
-          '#FF6384', // red/pink
-          '#36A2EB', // blue
-          '#FFCE56', // yellow
-          '#4BC0C0', // turquoise
-          '#9966FF'  // purple
+  const pieData = dashboardData?.budget_summary
+    ? {
+        labels: dashboardData?.budget_summary.map((cat) => cat.category_name),
+        datasets: [
+          {
+            label: "Category Spending",
+            data: dashboardData?.budget_summary.map((cat) => cat.spent_amount),
+            backgroundColor: [
+              "#FF6384", // red/pink
+              "#36A2EB", // blue
+              "#FFCE56", // yellow
+              "#4BC0C0", // turquoise
+              "#9966FF", // purple
+            ],
+            hoverOffset: 4,
+          },
         ],
-        hoverOffset: 4
       }
-    ]
-  } : {
-    labels: [],
-    datasets: []
-  };
+    : {
+        labels: [],
+        datasets: [],
+      };
 
   const pieOptions = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'right'
-      }
-    }
+        position: "right",
+      },
+    },
   };
 
   // Example Line chart data
-  const lineData = savingsData?.savings_by_period ? {
-    labels: savingsData.savings_by_period.map(p => `${p.month}/${p.year}`),
-    datasets: [
-      {
-        label: 'Savings',
-        data: savingsData.savings_by_period.map(p => p.amount),
-        fill: false,
-        borderColor: '#36A2EB',
-        tension: 0.1
+  const lineData = savingsData?.savings_by_period
+    ? {
+        labels: savingsData.savings_by_period.map(
+          (p) => `${p.month}/${p.year}`
+        ),
+        datasets: [
+          {
+            label: "Savings",
+            data: savingsData.savings_by_period.map((p) => p.amount),
+            fill: false,
+            borderColor: "#36A2EB",
+            tension: 0.1,
+          },
+        ],
       }
-    ]
-  } : {
-    labels: [],
-    datasets: []
-  };
+    : {
+        labels: [],
+        datasets: [],
+      };
 
   const lineOptions = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top'
-      }
+        position: "top",
+      },
     },
     scales: {
       y: {
-        beginAtZero: true
-      }
-    }
+        beginAtZero: true,
+      },
+    },
   };
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
         const data = await getDashboard(currentMonth, currentYear, token); // Replaced axios with getDashboard
+        console.log(data);
         setDashboardData(data);
       } catch (err) {
-        setError('Error fetching dashboard data');
+        setError("Error fetching dashboard data");
         console.error(err);
       }
     };
@@ -154,27 +161,37 @@ function DashboardPage() {
         <div className="stats-cards">
           <div className="card">
             <h2>Expected Income</h2>
-            <p className="amount">${dashboardData?.balance.expected_income.toFixed(2) || "N/A"}</p>
+            <p className="amount">
+              ${dashboardData?.balance.expected_income.toFixed(2) || "N/A"}
+            </p>
             <button className="card-btn">Details</button>
           </div>
           <div className="card">
             <h2>Actual Income</h2>
-            <p className="amount">${dashboardData?.balance.actual_income.toFixed(2) || "N/A"}</p>
+            <p className="amount">
+              ${dashboardData?.balance.actual_income.toFixed(2) || "N/A"}
+            </p>
             <button className="card-btn">Details</button>
           </div>
           <div className="card">
             <h2>Total Expenses</h2>
-            <p className="amount">${dashboardData?.balance.total_expenses.toFixed(2) || "N/A"}</p>
+            <p className="amount">
+              ${dashboardData?.balance.total_expenses.toFixed(2) || "N/A"}
+            </p>
             <button className="card-btn">Details</button>
           </div>
           <div className="card">
             <h2>Current Balance</h2>
-            <p className="amount">${dashboardData?.balance.remaining_budget.toFixed(2) || "N/A"}</p>
+            <p className="amount">
+              ${dashboardData?.balance.remaining_budget.toFixed(2) || "N/A"}
+            </p>
             <button className="card-btn">Details</button>
           </div>
           <div className="card">
             <h2>Savings</h2>
-            <p className="amount">${dashboardData?.savings.toFixed(2) || "N/A"}</p>
+            <p className="amount">
+              ${dashboardData?.savings.toFixed(2) || "N/A"}
+            </p>
           </div>
         </div>
 
@@ -194,7 +211,7 @@ function DashboardPage() {
             </div>
           </div>
 
-          {/* Savings Over Time (Line) */}
+          {/* Savings Over Time (Line)
           <div className="chart-container">
             <h3>Savings Over Time</h3>
             {savingsData?.savings_by_period ? (
@@ -202,8 +219,7 @@ function DashboardPage() {
             ) : (
               <p>Loading savings data...</p>
             )}
-          </div>
-
+          </div> */}
         </div>
 
         {/* Recent Transactions */}
@@ -214,13 +230,21 @@ function DashboardPage() {
               {dashboardData.recent_transactions.map((tx, i) => (
                 <div key={i} className="bg-white shadow-md rounded-lg p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-semibold text-lg">{tx.description}</span>
-                    <span className={`text-sm ${tx.amount < 0 ? 'text-green-500' : 'text-red-500'}`}>
+                    <span className="font-semibold text-lg">
+                      {tx.description}
+                    </span>
+                    <span
+                      className={`text-sm ${
+                        tx.amount < 0 ? "text-green-500" : "text-red-500"
+                      }`}
+                    >
                       ${tx.amount.toFixed(2)}
                     </span>
                   </div>
                   <div className="text-sm text-gray-500">
-                    <p>Date: {new Date(tx.date).toLocaleDateString()}</p>
+                    <p>
+                      Date: {new Date(tx.transaction_date).toLocaleDateString()}
+                    </p>
                     <p>Category: {tx.category}</p>
                   </div>
                 </div>
